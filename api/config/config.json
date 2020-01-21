@@ -1,0 +1,12 @@
+{
+    "development": {
+        "PORT": 3000,
+        "MONGODB_URI": "url to your mongodb test cluster",
+        "secret": "your test secret"
+    },
+    "production": {
+        "PORT": 8080,
+        "MONGODB_URI": "url to your mongodb production cluster",
+        "secret": "your production secret"
+    }
+}
