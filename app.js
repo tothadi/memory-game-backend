@@ -4,7 +4,7 @@
   Each is commented and marked with [SH] to make them easy to find
 
  */
-require('./api/config/config');
+// require('./api/config/config'); *** Only needed if you want to use credential values
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
