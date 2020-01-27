@@ -19,7 +19,7 @@ module.exports.register = function (req, res) {
   var newUserName = req.body.username;
   var newUserEmail = req.body.email;
 
-  User.collection.find(
+  User.collection.findOne(
     {
       $or: [
         { username: newUserName },
