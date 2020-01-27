@@ -62,7 +62,7 @@ module.exports.login = function (req, res) {
       });
     } else {
       // If user is not found
-      res.status(401).json('User not found!');
+      res.status(401).json(info);
     }
   })(req, res);
 
