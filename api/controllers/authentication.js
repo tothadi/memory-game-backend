@@ -16,33 +16,57 @@ module.exports.register = function (req, res) {
     return;
   }
 
-  var user = new User();
+  var newUserName = req.body.username;
+  var newUserEmail = req.body.email;
 
-  user.username = req.body.username;
-  user.email = req.body.email;
-  user.fullname = req.body.fullname;
+  User.findOne({ newUserName }), (function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (user) {
+        res.status(200).json('Username already exists!');
+      } else {
+        User.findOne({ newUserEmail }), (function (err, user) {
+          if (err) {
+            console.log(err);
+          } else {
+            if (user) {
+              res.status(200).json('User with this email already exists!');
+            } else {
+              
+              var user = new User();
 
-  user.setPassword(req.body.password);
+              user.username = req.body.username;
+              user.email = req.body.email;
+              user.fullname = req.body.fullname;
 
-  user.save(function (err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token": token
-    });
+              user.setPassword(req.body.password);
+
+              user.save(function (err) {
+                var token;
+                token = user.generateJwt();
+                res.status(200);
+                res.json({
+                  "token": token
+                });
+              });
+            }
+          }
+        })
+      }
+    }
   });
 
 };
 
 module.exports.login = function (req, res) {
 
-   if(!req.body.username || !req.body.password) {
-     sendJSONresponse(res, 400, {
-       "message": "All fields required"
-     });
-     return;
-   }
+  if (!req.body.username || !req.body.password) {
+    sendJSONresponse(res, 400, {
+      "message": "All fields required"
+    });
+    return;
+  }
 
   passport.authenticate('local', function (err, user, info) {
     var token;
