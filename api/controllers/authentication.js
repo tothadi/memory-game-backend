@@ -26,11 +26,14 @@ module.exports.register = function (req, res) {
         { email: newUserEmail },
       ]
     }, (function (err, user) {
-      if (err) {
-        console.log(err);
+      if (user) {
+        sendJSONresponse(res, 400, {
+          "message": "User already exists!"
+        });
+        return;
       } else {
-        if (user) {
-          res.status(200).json('User already exists!');
+        if (err) {
+          console.log(err);
         } else {
           var user = new User();
 
