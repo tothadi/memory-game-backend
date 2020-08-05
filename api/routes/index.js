@@ -3,6 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({
   secret: process.env.secret,
+  algorithms: ['RS256'],
   userProperty: 'payload'
 });
 
